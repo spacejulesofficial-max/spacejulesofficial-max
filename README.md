@@ -12,7 +12,7 @@ from their screens and out at the world.
 ## 🌌 My universe
 - 🎵 [Jules Frequencies](https://www.youtube.com/@JulesFrequencies) — healing frequencies from ocean to space
 - 🌊 [Ocean Jules](https://www.youtube.com/@ocean_jules) — freediving & calm ocean life
-- 🚀 Space Jules — Top 50 globally in the SERA astronaut program
+- 🚀 [Space Jules](https://www.youtube.com/@spacejulesofficial) — Top 50 globally in the SERA astronaut program
 - 🎬 An AI short film — under wraps for now 🤫
 
 > "Technology shouldn't replace nature. It should help people see it."
