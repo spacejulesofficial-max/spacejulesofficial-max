@@ -5,7 +5,7 @@ little universe the other half. I make things that help people look up
 from their screens and out at the world.
 
 ## 🛠️ Currently building
-- 🦦 **OTERCEL GO** — an audio-first AI exploration game that gets you
+- 🦦 **OTTERCEL GO** — an audio-first AI exploration game that gets you
   *off* your phone and out into the real world. Built for the
   Meta Global AI Developer Hackathon 2026.
 
