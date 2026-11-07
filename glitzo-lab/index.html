@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glitzo's Little Lab 🐙💜</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ambient background elements -->
+  <div class="ambient-glow cyan-glow"></div>
+  <div class="ambient-glow purple-glow"></div>
+  <div class="grid-overlay"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <main class="lab-container">
+    <!-- Header -->
+    <header class="lab-header">
+      <div class="lab-badge">MISSION 001 // EXPERIMENTAL UNIT</div>
+      <h1 class="lab-title">Glitzo's Little Lab <span class="mascot-icon">🐙</span></h1>
+      <p class="lab-subtitle">Cozy sci-fi habitat of the universe's tiniest quantum cephalopod.</p>
+    </header>
+
+    <!-- Lab Pod / Chamber -->
+    <section class="chamber-card" aria-label="Glitzo's Bio-Chamber">
+      <!-- Bioluminescent floating bubbles/particles -->
+      <div class="particles-container" id="particles-container"></div>
+
+      <!-- Speech Bubble -->
+      <div class="speech-bubble" id="speech-bubble" role="status" aria-live="polite">
+        <span class="speech-text" id="speech-text">Bloop bloop! I'm Glitzo! Ready for research! ✨</span>
+        <div class="bubble-arrow"></div>
+      </div>
+
+      <!-- Glitzo Mascot Area -->
+      <div class="mascot-stage" id="mascot-stage">
+        <!-- Heart/sparkle popups -->
+        <div class="floating-reactions" id="reactions-container"></div>
+
+        <svg class="glitzo-svg" id="glitzo-svg" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Adorable purple baby octopus mascot named Glitzo">
+          <defs>
+            <!-- Body Gradient -->
+            <radialGradient id="bodyGrad" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#d97706" stop-opacity="0" />
+              <stop offset="0%" stop-color="#c084fc" />
+              <stop offset="55%" stop-color="#9333ea" />
+              <stop offset="100%" stop-color="#6b21a8" />
+            </radialGradient>
+            <!-- Glow Tentacles Gradient -->
+            <linearGradient id="tentacleGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#a855f7" />
+              <stop offset="100%" stop-color="#581c87" />
+            </linearGradient>
+            <!-- Sucker bioluminescent teal -->
+            <radialGradient id="suckerGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#a7f3d0" />
+              <stop offset="60%" stop-color="#00f5d4" />
+              <stop offset="100%" stop-color="#059669" />
+            </radialGradient>
+            <!-- Teal Glow Filter -->
+            <filter id="neonTealGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <!-- Antenna / Sparkle Glow Filter -->
+            <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- Shadow underneath -->
+          <ellipse cx="170" cy="305" rx="85" ry="14" fill="#000000" opacity="0.35" class="ground-shadow" />
+
+          <!-- Back Tentacles (Idle float) -->
+          <g class="tentacles-back">
+            <!-- T1: Back Far Left -->
+            <path class="tentacle t-back-1" d="M 120 220 C 95 240, 60 250, 70 280 C 76 298, 105 285, 115 260 C 122 240, 130 230, 135 225" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+            <!-- T2: Back Left -->
+            <path class="tentacle t-back-2" d="M 140 230 C 125 260, 105 285, 120 300 C 135 310, 148 280, 148 250" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+            <!-- T7: Back Right -->
+            <path class="tentacle t-back-3" d="M 200 230 C 215 260, 235 285, 220 300 C 205 310, 192 280, 192 250" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+            <!-- T8: Back Far Right -->
+            <path class="tentacle t-back-4" d="M 220 220 C 245 240, 280 250, 270 280 C 264 298, 235 285, 225 260 C 218 240, 210 230, 205 225" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+          </g>
+
+          <!-- Main Octopus Head & Body Group -->
+          <g class="glitzo-head-group" id="glitzo-head-group">
+            <!-- Antenna / Bio-luminescent cute bulb -->
+            <g class="bio-antenna">
+              <path d="M 170 85 Q 170 55, 178 40" stroke="#a855f7" stroke-width="4" stroke-linecap="round" fill="none" />
+              <circle cx="178" cy="38" r="9" fill="#00f5d4" filter="url(#softGlow)" class="antenna-bulb" />
+              <circle cx="178" cy="38" r="4" fill="#ffffff" />
+            </g>
+
+            <!-- Cute head shape -->
+            <ellipse cx="170" cy="155" rx="88" ry="82" fill="url(#bodyGrad)" stroke="#581c87" stroke-width="2.5" />
+
+            <!-- Head highlight (soft lighting) -->
+            <ellipse cx="140" cy="115" rx="36" ry="20" transform="rotate(-25 140 115)" fill="#ffffff" opacity="0.18" />
+
+            <!-- Forehead Quantum Marking (Lab detail) -->
+            <circle cx="170" cy="100" r="3.5" fill="#00f5d4" opacity="0.8" filter="url(#neonTealGlow)" />
+            <circle cx="160" cy="103" r="2" fill="#00f5d4" opacity="0.6" />
+            <circle cx="180" cy="103" r="2" fill="#00f5d4" opacity="0.6" />
+
+            <!-- Cheeks / Blush -->
+            <ellipse cx="115" cy="182" rx="14" ry="7" fill="#f43f5e" opacity="0.5" class="blush" />
+            <ellipse cx="225" cy="182" rx="14" ry="7" fill="#f43f5e" opacity="0.5" class="blush" />
+
+            <!-- Left Eye -->
+            <g class="eye eye-left" id="eye-left">
+              <!-- Regular Round Eye -->
+              <circle cx="132" cy="156" r="18" fill="#0f0728" class="eye-base" />
+              <circle cx="132" cy="156" r="14" fill="#1e1145" />
+              <!-- Specular Highlights -->
+              <circle cx="127" cy="150" r="6" fill="#ffffff" class="eye-shine-large" />
+              <circle cx="138" cy="162" r="2.8" fill="#00f5d4" class="eye-shine-small" />
+              <!-- Happy / Booped Eye Path (Hidden initially) -->
+              <path class="eye-happy" d="M 118 158 Q 132 142, 146 158" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0" />
+            </g>
+
+            <!-- Right Eye -->
+            <g class="eye eye-right" id="eye-right">
+              <!-- Regular Round Eye -->
+              <circle cx="208" cy="156" r="18" fill="#0f0728" class="eye-base" />
+              <circle cx="208" cy="156" r="14" fill="#1e1145" />
+              <!-- Specular Highlights -->
+              <circle cx="203" cy="150" r="6" fill="#ffffff" class="eye-shine-large" />
+              <circle cx="214" cy="162" r="2.8" fill="#00f5d4" class="eye-shine-small" />
+              <!-- Happy / Booped Eye Path (Hidden initially) -->
+              <path class="eye-happy" d="M 194 158 Q 208 142, 222 158" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0" />
+            </g>
+
+            <!-- Cute Mouth -->
+            <g class="mouth-group" id="mouth-group">
+              <!-- Normal little smile (w) -->
+              <path class="mouth mouth-normal" d="M 160 178 Q 165 186, 170 179 Q 175 186, 180 178" stroke="#3b0764" stroke-width="3" stroke-linecap="round" fill="none" />
+              <!-- Boop open joyful mouth -->
+              <path class="mouth mouth-joy" d="M 161 176 Q 170 196, 179 176 Z" fill="#ec4899" stroke="#3b0764" stroke-width="2" opacity="0" />
+            </g>
+          </g>
+
+          <!-- Front Tentacles -->
+          <g class="tentacles-front">
+            <!-- T3: Front Left Outer -->
+            <g class="tentacle-group t-front-1">
+              <path class="tentacle" d="M 105 210 C 70 235, 55 260, 75 285 C 95 310, 120 270, 118 240" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+              <circle cx="75" cy="265" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="85" cy="285" r="4.5" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="102" cy="280" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+            </g>
+
+            <!-- T4: Front Left Inner (WAVING TENTACLE!) -->
+            <g class="tentacle-group t-waving" id="waving-tentacle">
+              <path class="tentacle waving-arm-path" d="M 135 225 C 120 250, 110 275, 125 300 C 140 315, 155 285, 148 245" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+              <circle cx="120" cy="275" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="130" cy="298" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="145" cy="275" r="3.5" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+            </g>
+
+            <!-- T5: Front Right Inner -->
+            <g class="tentacle-group t-front-3">
+              <path class="tentacle" d="M 195 245 C 188 285, 203 315, 218 300 C 233 275, 223 250, 208 225" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+              <circle cx="198" cy="275" r="3.5" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="213" cy="298" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="223" cy="275" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+            </g>
+
+            <!-- T6: Front Right Outer -->
+            <g class="tentacle-group t-front-4">
+              <path class="tentacle" d="M 225 240 C 223 270, 248 310, 268 285 C 288 260, 273 235, 238 210" fill="url(#tentacleGrad)" stroke="#581c87" stroke-width="2" />
+              <circle cx="241" cy="280" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="258" cy="285" r="4.5" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+              <circle cx="268" cy="265" r="4" fill="url(#suckerGrad)" filter="url(#neonTealGlow)" />
+            </g>
+          </g>
+        </svg>
+
+        <!-- Clickable Boop Hotspot on Glitzo's Head directly! -->
+        <button id="direct-boop-zone" class="direct-boop-zone" title="Boop my nose!" aria-label="Boop Glitzo's nose directly"></button>
+      </div>
+
+      <!-- Sci-Fi Lab Status Console -->
+      <div class="lab-console">
+        <div class="console-item">
+          <span class="console-label">MOOD MATRIX</span>
+          <span class="console-val" id="mood-val">ECSTATIC_CUDDLY</span>
+        </div>
+        <div class="console-item">
+          <span class="console-label">QUANTUM TENTACLES</span>
+          <span class="console-val">8 / 8 ACTIVE</span>
+        </div>
+        <div class="console-item">
+          <span class="console-label">BIO-GLOW</span>
+          <span class="console-val text-teal">TEAL_PULSE_SYNC</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- OTERCEL Progress Module -->
+    <section class="otercel-module" aria-label="OTERCEL Progress Section">
+      <div class="otercel-header">
+        <div class="otercel-title-group">
+          <span class="status-indicator"></span>
+          <h2 class="otercel-title">OTERCEL PROGRESS COUNTER</h2>
+        </div>
+        <div class="otercel-count-badge" id="otercel-count">0 / 3 COMPLETED</div>
+      </div>
+
+      <!-- 3 Green Square Slots -->
+      <div class="squares-track" id="squares-track">
+        <div class="square-slot" data-index="1" aria-label="Square slot 1">
+          <div class="square-glow"></div>
+          <div class="square-fill"></div>
+          <span class="slot-number">#1</span>
+          <span class="square-check">✓</span>
+        </div>
+        <div class="square-slot" data-index="2" aria-label="Square slot 2">
+          <div class="square-glow"></div>
+          <div class="square-fill"></div>
+          <span class="slot-number">#2</span>
+          <span class="square-check">✓</span>
+        </div>
+        <div class="square-slot" data-index="3" aria-label="Square slot 3">
+          <div class="square-glow"></div>
+          <div class="square-fill"></div>
+          <span class="slot-number">#3</span>
+          <span class="square-check">✓</span>
+        </div>
+      </div>
+      <p class="squares-hint" id="squares-hint">Feed quantum energy to complete the 3 green squares!</p>
+    </section>
+
+    <!-- Interactive Actions Toolbar -->
+    <section class="controls-section" aria-label="Lab Control Actions">
+      <button class="btn btn-boop" id="btn-boop" aria-label="Boop Glitzo">
+        <span class="btn-icon">👉</span>
+        <span class="btn-text">BOOP!</span>
+      </button>
+
+      <button class="btn btn-wave" id="btn-wave" aria-label="Wave Hello with tentacle">
+        <span class="btn-icon">👋</span>
+        <span class="btn-text">Wave Hello</span>
+      </button>
+
+      <button class="btn btn-square" id="btn-square" aria-label="Add One Green Square">
+        <span class="btn-icon">🟩</span>
+        <span class="btn-text">One Green Square</span>
+      </button>
+
+      <button class="btn btn-reset" id="btn-reset" title="Reset OTERCEL counter" aria-label="Reset Lab">
+        <span class="btn-icon">🔄</span>
+        <span class="btn-text">Reset Lab</span>
+      </button>
+    </section>
+
+    <!-- Sound Toggle -->
+    <div class="sound-control-wrapper">
+      <button id="sound-toggle" class="sound-toggle" aria-label="Toggle cute synth sound effects">
+        <span id="sound-icon">🔊</span> Cute SFX: <span id="sound-status">ON</span>
+      </button>
+    </div>
+
+    <!-- Celebration Modal / Banner Overlay -->
+    <div class="celebration-overlay" id="celebration-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="celebration-card">
+        <div class="celebration-sparkles">✨ 🐙 💚 ✨</div>
+        <h2 class="celebration-title">OTERCEL COMPLETED!</h2>
+        <p class="celebration-msg">
+          Hurray! Glitzo is overjoyed! All three green squares are radiating quantum harmony!
+        </p>
+        <div class="celebration-badge">"Eight arms. One green square at a time."</div>
+        <div class="celebration-actions">
+          <button class="btn btn-square celebration-btn" id="btn-celebrate-again">
+            Celebrate & Dance Again! 🥳
+          </button>
+          <button class="btn btn-reset celebration-btn" id="btn-celebrate-reset">
+            New Research Round 🔄
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Motto -->
+    <footer class="lab-footer">
+      <div class="motto-box">
+        <span class="motto-quote">“Eight arms. One green square at a time.”</span>
+        <span class="motto-emojis">🐙💚</span>
+      </div>
+      <div class="footer-credit">Built with cosmic love in Glitzo's Quantum Deep Lab 🌊✨</div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
